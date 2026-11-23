@@ -84,14 +84,14 @@ export default function LeadForm() {
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="w-4 h-4 text-otech-cyan-400 shrink-0" />
-                  <span className="font-mono">+962 6 000 0000 / +962 7 9000 0000</span>
+                  <span className="font-mono">+962 7 7680 1240</span>
                 </div>
               </div>
 
               {/* Direct WhatsApp Action Button */}
               <div className="pt-2">
                 <a
-                  href="https://wa.me/962790000000"
+                  href="https://wa.me/962776801240"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition-all shadow-lg hover:shadow-emerald-500/25 cursor-pointer"

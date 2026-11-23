@@ -60,7 +60,7 @@
   "about": {
     "badge": "ABOUT OTECH",
     "title": "Amman's Premier Engineering Talent for Mission-Critical Systems",
-    "p1": "Headquartered in Amman, Jordan, OTECH is the trusted technical engineering partner for forward-looking enterprises. We combine cutting-edge AI engineering with deep regional business context.",
+    "p1": "Headquartered in King Hussein Business Park in Amman, Jordan, OTECH is the trusted technical engineering partner for forward-looking enterprises. We combine cutting-edge AI engineering with deep regional business context.",
     "p2": "Whether you need a dedicated engineering pod or a complete modernization of legacy infrastructure, our Amman team delivers transparent, sovereign codebases built to international standards.",
     "stat1": "100% Client IP & Source Code Ownership",
     "stat2": "Guaranteed < 2-Hour Response SLA in Jordan",
@@ -79,14 +79,15 @@
     }
   },
   "contact": {
-    "badge": "Amman Headquarters",
+    "badge": "King Hussein Business Park HQ",
     "h2": "Ready to Build Your Next Software Solution?",
-    "sub": "Whether initiating a new digital platform, automating core business workflows, or embedding custom AI agents, our Amman engineering team is ready to collaborate.",
+    "sub": "Whether initiating a new digital platform, automating core business workflows, or embedding custom AI agents, our engineering team in King Hussein Business Park, Amman is ready to collaborate.",
     "slaTitle": "Rapid Response Guarantee",
     "slaDesc": "Our technical engineers in Amman respond within 2 business hours guaranteed.",
     "wa": "Direct WhatsApp Chat with Engineering",
-    "waNumber": "+962 7 9000 0000",
-    "location": "Amman, Hashemite Kingdom of Jordan",
+    "waNumber": "+962 7 7680 1240",
+    "location": "King Hussein Business Park, Amman, Jordan",
+    "phone": "+962 7 7680 1240",
     "email": "contact@o-tech.space",
     "domain": "o-tech.space"
   },
@@ -100,7 +101,7 @@
     "email": "Work Email *",
     "emailPlaceholder": "name@company.com",
     "phone": "Phone / WhatsApp *",
-    "phonePlaceholder": "+962 7 9XXX XXXX",
+    "phonePlaceholder": "+962 7 7XXX XXXX",
     "interest": "Primary Service Needed *",
     "interestOptions": {
       "enterprise_ai": "Enterprise AI & Multi-Agent Systems",
@@ -119,13 +120,13 @@
     "privacy": "Your data is strictly confidential and protected under OTECH Jordan enterprise privacy policies."
   },
   "footer": {
-    "desc": "Enterprise software engineering and AI solutions company in Amman, Jordan. Engineering high-performance, scalable platforms to international standards.",
+    "desc": "Enterprise software engineering and AI solutions company in King Hussein Business Park, Amman, Jordan. Engineering high-performance, scalable platforms to international standards.",
     "quickLinks": "Quick Links",
     "servicesTitle": "Engineering Services",
     "contactTitle": "Direct Contact",
     "rights": "All rights reserved. OTECH Software Development LLC.",
     "domain": "o-tech.space",
-    "amman": "Amman, Jordan",
+    "amman": "Business Park, Amman, Jordan",
     "supportPortal": "Support & Ticketing Portal",
     "github": "Official GitHub (alnatourm)"
   }
