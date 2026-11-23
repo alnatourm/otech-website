@@ -1,0 +1,132 @@
+{
+  "brand": "OTECH",
+  "nav": {
+    "subtitle": "Software & AI Engineering Company",
+    "home": "Home",
+    "services": "Engineering Services",
+    "solutions": "Enterprise AI",
+    "about": "About OTECH",
+    "contact": "Contact Us",
+    "tickets": "Support Portal",
+    "cta": "Request Consultation"
+  },
+  "hero": {
+    "badge": "Amman, Jordan · OTECH Software Engineering & Enterprise AI",
+    "h1": "Engineering High-Performance Software & Enterprise AI for Modern Business",
+    "sub": "OTECH engineers custom cloud platforms, high-velocity digital products, and autonomous AI agents empowering forward-thinking enterprises in Jordan and the MENA region.",
+    "btnPrimary": "Book Technical Consultation & Demo",
+    "btnSecondary": "Explore Engineering Services",
+    "trust1": "Dedicated Engineering Hub in Amman",
+    "trust2": "Next.js 16 + Supabase Architecture",
+    "trust3": "Bilingual AI Intelligence (Arabic / English)"
+  },
+  "mockup": {
+    "activePods": "ACTIVE ENGINEERING PODS",
+    "edgeLatency": "12ms Amman Edge Latency",
+    "clusterSync": "Supabase Cloud Sync",
+    "pod1Title": "Enterprise Cloud Operations Portal",
+    "pod1Sub": "Next.js 16 + PostgreSQL Architecture",
+    "pod2Title": "Arabic RAG AI Intelligence Engine",
+    "pod2Sub": "Domain-Tuned Arabic Document Processing",
+    "pod3Title": "ERP System Integration Pipeline",
+    "pod3Sub": "Real-Time Enterprise Workflow Sync"
+  },
+  "services": {
+    "kicker": "OUR CAPABILITIES",
+    "title": "Enterprise Software Engineering & AI Solutions",
+    "desc": "End-to-end engineering services for mid-market and enterprise organizations, from technical architecture to deployment and ongoing SLAs.",
+    "card1": {
+      "title": "Custom Software & Cloud Platforms",
+      "desc": "Developing enterprise portals, real-time dashboards, and microservices powered by Next.js 16, React, Supabase, and PostgreSQL with bank-grade security and ultra-low latency.",
+      "f1": "High-availability microservices designed for massive horizontal scaling",
+      "f2": "High-performance PostgreSQL databases secured by Row Level Security (RLS)",
+      "f3": "Ultra-responsive user interfaces with full native RTL and LTR support"
+    },
+    "card2": {
+      "title": "Enterprise AI & Multi-Agent Systems",
+      "desc": "Designing and deploying domain-specific autonomous AI agents for customer operations, sales pipelines, and internal document search with native Arabic dialect support.",
+      "f1": "Advanced RAG pipelines and vector search optimized for enterprise knowledge",
+      "f2": "Direct integration with WhatsApp, customer portals, and internal workflows",
+      "f3": "Domain-adapted AI models fine-tuned on regional business vocabularies"
+    },
+    "card3": {
+      "title": "Workflow Automation & System Integration",
+      "desc": "Bridging legacy ERPs, CRMs, and accounting platforms with modern automated pipelines, eliminating manual data handling and reducing cycle times by up to 85%.",
+      "f1": "Error-free automated invoicing, financial reporting, and reconciliations",
+      "f2": "Secure enterprise API gateways with 24/7 telemetry and uptime monitoring",
+      "f3": "Eliminate manual data re-entry and free valuable team capacity"
+    }
+  },
+  "about": {
+    "badge": "ABOUT OTECH",
+    "title": "Amman's Premier Engineering Talent for Mission-Critical Systems",
+    "p1": "Headquartered in Amman, Jordan, OTECH is the trusted technical engineering partner for forward-looking enterprises. We combine cutting-edge AI engineering with deep regional business context.",
+    "p2": "Whether you need a dedicated engineering pod or a complete modernization of legacy infrastructure, our Amman team delivers transparent, sovereign codebases built to international standards.",
+    "stat1": "100% Client IP & Source Code Ownership",
+    "stat2": "Guaranteed < 2-Hour Response SLA in Jordan",
+    "pillarsTitle": "The OTECH Engineering Principles",
+    "pillar1": {
+      "title": "Modern & High-Performance Cloud",
+      "desc": "Built on Next.js 16 and Supabase with sub-second page loads and seamless user experiences."
+    },
+    "pillar2": {
+      "title": "Data Sovereignty & Enterprise Security",
+      "desc": "End-to-end encryption with sovereign hosting compliance within Jordan."
+    },
+    "pillar3": {
+      "title": "Transparent Agile Delivery & SLAs",
+      "desc": "Disciplined sprints, automated CI/CD pipelines, and rigorous automated testing."
+    }
+  },
+  "contact": {
+    "badge": "Amman Headquarters",
+    "h2": "Ready to Build Your Next Software Solution?",
+    "sub": "Whether initiating a new digital platform, automating core business workflows, or embedding custom AI agents, our Amman engineering team is ready to collaborate.",
+    "slaTitle": "Rapid Response Guarantee",
+    "slaDesc": "Our technical engineers in Amman respond within 2 business hours guaranteed.",
+    "wa": "Direct WhatsApp Chat with Engineering",
+    "waNumber": "+962 7 9000 0000",
+    "location": "Amman, Hashemite Kingdom of Jordan",
+    "email": "contact@o-tech.space",
+    "domain": "o-tech.space"
+  },
+  "form": {
+    "title": "Schedule a Technical Consultation",
+    "desc": "Share your project goals and an OTECH systems architect will reach out with technical scoping and delivery estimates.",
+    "name": "Full Name *",
+    "namePlaceholder": "e.g. John Doe",
+    "company": "Company Name *",
+    "companyPlaceholder": "e.g. Apex Enterprises",
+    "email": "Work Email *",
+    "emailPlaceholder": "name@company.com",
+    "phone": "Phone / WhatsApp *",
+    "phonePlaceholder": "+962 7 9XXX XXXX",
+    "interest": "Primary Service Needed *",
+    "interestOptions": {
+      "enterprise_ai": "Enterprise AI & Multi-Agent Systems",
+      "custom_software": "Custom Software & Cloud Platforms",
+      "system_automation": "Workflow Automation & System Integration",
+      "technical_consulting": "Technical Architecture & Consulting"
+    },
+    "message": "Project Details or Technical Challenge (Optional)",
+    "messagePlaceholder": "Briefly describe project scope, desired timelines, or technical requirements...",
+    "submit": "Submit Inquiry & Connect with Engineers",
+    "submitting": "Submitting Inquiry...",
+    "successTitle": "Inquiry Received Successfully!",
+    "successDesc": "Thank you for reaching out to OTECH. Your inquiry has been registered in our engineering system. An engineer in Amman will reach out within 2 business hours.",
+    "sendAnother": "Submit Another Inquiry",
+    "errorDesc": "An error occurred while submitting. Please ensure required fields are filled with a valid phone number (+962) or contact us via WhatsApp.",
+    "privacy": "Your data is strictly confidential and protected under OTECH Jordan enterprise privacy policies."
+  },
+  "footer": {
+    "desc": "Enterprise software engineering and AI solutions company in Amman, Jordan. Engineering high-performance, scalable platforms to international standards.",
+    "quickLinks": "Quick Links",
+    "servicesTitle": "Engineering Services",
+    "contactTitle": "Direct Contact",
+    "rights": "All rights reserved. OTECH Software Development LLC.",
+    "domain": "o-tech.space",
+    "amman": "Amman, Jordan",
+    "supportPortal": "Support & Ticketing Portal",
+    "github": "Official GitHub (alnatourm)"
+  }
+}
