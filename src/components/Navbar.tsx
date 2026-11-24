@@ -82,7 +82,7 @@ export default function Navbar() {
             {t("contact")}
           </a>
           <a
-            href="https://tickets.otech.jo"
+            href="https://tickets.o-tech.space/en"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1 text-slate-400 hover:text-otech-cyan-400 transition-colors border-l border-r border-slate-700/60 px-3 py-1"
@@ -121,7 +121,7 @@ export default function Navbar() {
             aria-label={`Switch to ${switchLabel}`}
             className="flex items-center gap-1 px-2.5 py-1 rounded-full border border-otech-dark-700 bg-otech-dark-900 text-xs font-semibold text-slate-200"
           >
-            <Globe className="w-3 h-3 text-otech-cyan-400" />
+            <Globe className="w-3.5 h-3.5 text-otech-cyan-400" />
             <span>{switchLabel}</span>
           </button>
           <button
@@ -178,7 +178,7 @@ export default function Navbar() {
               {t("contact")}
             </a>
             <a
-              href="https://tickets.otech.jo"
+              href="https://tickets.o-tech.space/en"
               target="_blank"
               rel="noopener noreferrer"
               className="py-1.5 flex items-center gap-2 text-otech-cyan-400"
