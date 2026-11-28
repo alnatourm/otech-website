@@ -2,12 +2,19 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { useCrm } from '../CrmContext';
-import { Plus, UserPlus, Sparkles, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Plus, UserPlus, LogIn, LogOut, ShieldCheck, User } from 'lucide-react';
 
 export const CrmHeader: React.FC = () => {
-  const { setIsAddContactOpen, setIsAddDealOpen, setIsOttyHelpOpen } = useCrm();
+  const {
+    setIsAddContactOpen,
+    setIsAddDealOpen,
+    setIsOttyHelpOpen,
+    currentUser,
+    handleLogout,
+    setIsLoginModalOpen,
+  } = useCrm();
 
   return (
     <header className="border-b border-otech-dark-700 bg-otech-dark-900/90 backdrop-blur-md sticky top-0 z-40">
@@ -62,6 +69,36 @@ export const CrmHeader: React.FC = () => {
             <span>+ صفقة جديدة</span>
           </button>
 
+          {/* Auth State Button */}
+          {currentUser ? (
+            <div className="flex items-center gap-2 ps-2 border-s border-otech-dark-700">
+              <div className="hidden lg:flex flex-col text-end">
+                <span className="text-[11px] font-medium text-white truncate max-w-[130px] font-mono dir-ltr">
+                  {currentUser.email || 'sales@o-tech.space'}
+                </span>
+                <span className="text-[9px] text-emerald-400 font-semibold">جلسة نشطة</span>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 rounded-xl transition"
+                title="تسجيل الخروج"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">خروج</span>
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center ps-2 border-s border-otech-dark-700">
+              <button
+                onClick={() => setIsLoginModalOpen(true)}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-otech-cyan-300 bg-otech-cyan-500/10 hover:bg-otech-cyan-500/20 border border-otech-cyan-500/30 rounded-xl transition"
+              >
+                <LogIn className="w-3.5 h-3.5" />
+                <span>تسجيل الدخول</span>
+              </button>
+            </div>
+          )}
+
           {/* OTTY Mascot Interactive Avatar */}
           <div className="ps-2 sm:ps-3 border-s border-otech-dark-700 flex items-center gap-2">
             <button
@@ -84,7 +121,7 @@ export const CrmHeader: React.FC = () => {
             {/* Sales Rep Info */}
             <div className="hidden md:block text-start">
               <div className="text-xs font-bold text-white leading-tight">فريق المبيعات</div>
-              <div className="text-[10px] text-otech-cyan-400">عمّان — مكتب KHBP</div>
+              <div className="text-[10px] text-otech-cyan-400">عمّان — مجمع KHBP</div>
             </div>
           </div>
         </div>

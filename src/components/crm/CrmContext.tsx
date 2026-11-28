@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useMemo, useEffect } from 'react';
+import React, { createContext, useContext, useState, useMemo, useEffect, useCallback } from 'react';
 import type {
   Contact,
   Deal,
@@ -14,6 +14,8 @@ import type {
   LogActivityInput,
 } from '@/lib/crm/types';
 import * as crmActions from '@/lib/actions/crm';
+import { logoutAdmin } from '@/lib/actions/auth';
+import { createClient } from '@/lib/supabase/client';
 
 export interface ExtendedDeal extends Deal {
   company_name?: string;
@@ -26,11 +28,18 @@ export interface ExtendedActivity extends Activity {
   created_by_name?: string;
 }
 
+export interface CurrentUser {
+  id: string;
+  email?: string;
+}
+
 interface CrmContextType {
   contacts: Contact[];
   deals: ExtendedDeal[];
   activities: ExtendedActivity[];
   isLoading: boolean;
+  currentUser: CurrentUser | null;
+  setCurrentUser: (user: CurrentUser | null) => void;
 
   // KPIs
   stats: {
@@ -53,11 +62,15 @@ interface CrmContextType {
   setWonCelebrationDeal: (deal: ExtendedDeal | null) => void;
   isOttyHelpOpen: boolean;
   setIsOttyHelpOpen: (open: boolean) => void;
+  isLoginModalOpen: boolean;
+  setIsLoginModalOpen: (open: boolean) => void;
   drawerContact: Contact | null;
   openDrawer: (contact: Contact) => void;
   closeDrawer: () => void;
 
   // Actions
+  refreshData: () => Promise<void>;
+  handleLogout: () => Promise<void>;
   handleAddContact: (input: CreateContactInput) => Promise<boolean>;
   handleAddDeal: (input: CreateDealInput) => Promise<boolean>;
   handleMoveDeal: (dealId: string, targetStage: DealStage) => void;
@@ -77,6 +90,7 @@ export const CrmProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [deals, setDeals] = useState<ExtendedDeal[]>(INITIAL_DEALS);
   const [activities, setActivities] = useState<ExtendedActivity[]>(INITIAL_ACTIVITIES);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
 
   // Modals state
   const [isAddContactOpen, setIsAddContactOpen] = useState(false);
@@ -84,66 +98,111 @@ export const CrmProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [pendingLostDeal, setPendingLostDeal] = useState<ExtendedDeal | null>(null);
   const [wonCelebrationDeal, setWonCelebrationDeal] = useState<ExtendedDeal | null>(null);
   const [isOttyHelpOpen, setIsOttyHelpOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [drawerContact, setDrawerContact] = useState<Contact | null>(null);
 
-  // Sync with server if authenticated
+  // Load server data function (callable on mount and after login)
+  const loadServerData = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const [contactsRes, dealsRes, activitiesRes] = await Promise.all([
+        crmActions.getContacts(),
+        crmActions.getDeals(),
+        crmActions.getActivities(),
+      ]);
+
+      // Check if unauthorized
+      if (!contactsRes.success && contactsRes.code === 'UNAUTHORIZED') {
+        setIsLoginModalOpen(true);
+        setContacts([]);
+        setDeals([]);
+        setActivities([]);
+        return;
+      }
+
+      const loadedContacts = contactsRes.success && contactsRes.data ? contactsRes.data : [];
+      setContacts(loadedContacts);
+
+      if (dealsRes.success && dealsRes.data) {
+        const mappedDeals: ExtendedDeal[] = dealsRes.data.map((d) => ({
+          ...d,
+          contact_name: loadedContacts.find((c) => c.id === d.contact_id)?.full_name || 'عميل محلي',
+          company_name: loadedContacts.find((c) => c.id === d.contact_id)?.company_name || 'أعمال محلية',
+        }));
+        setDeals(mappedDeals);
+      } else {
+        setDeals([]);
+      }
+
+      if (activitiesRes.success && activitiesRes.data) {
+        const mappedActivities: ExtendedActivity[] = activitiesRes.data.map((a) => ({
+          ...a,
+          contact_name: loadedContacts.find((c) => c.id === a.contact_id)?.full_name || 'جهة اتصال',
+          created_by_name: 'فريق المبيعات',
+        }));
+        setActivities(mappedActivities);
+      } else {
+        setActivities([]);
+      }
+    } catch (err) {
+      console.warn('Operating in offline/clean mode or unauthenticated.');
+      setContacts([]);
+      setDeals([]);
+      setActivities([]);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  // Sync auth state and load data on mount
   useEffect(() => {
     let mounted = true;
-    async function loadServerData() {
-      setIsLoading(true);
-      try {
-        const [contactsRes, dealsRes, activitiesRes] = await Promise.all([
-          crmActions.getContacts(),
-          crmActions.getDeals(),
-          crmActions.getActivities(),
-        ]);
+    const supabase = createClient();
 
-        if (mounted) {
-          const loadedContacts = contactsRes.success && contactsRes.data ? contactsRes.data : [];
-          setContacts(loadedContacts);
-
-          if (dealsRes.success && dealsRes.data) {
-            // Map deals with contact names
-            const mappedDeals: ExtendedDeal[] = dealsRes.data.map((d) => ({
-              ...d,
-              contact_name: loadedContacts.find((c) => c.id === d.contact_id)?.full_name || 'عميل محلي',
-              company_name: loadedContacts.find((c) => c.id === d.contact_id)?.company_name || 'شركة محلية',
-            }));
-            setDeals(mappedDeals);
-          } else {
-            setDeals([]);
-          }
-
-          if (activitiesRes.success && activitiesRes.data) {
-            const mappedActivities: ExtendedActivity[] = activitiesRes.data.map((a) => ({
-              ...a,
-              contact_name: loadedContacts.find((c) => c.id === a.contact_id)?.full_name || 'العميل',
-              created_by_name: 'أنت (مسؤول المبيعات)',
-            }));
-            setActivities(mappedActivities);
-          } else {
-            setActivities([]);
-          }
-        }
-      } catch (err) {
-        console.warn('Operating in offline/clean mode.');
-        if (mounted) {
-          setContacts([]);
-          setDeals([]);
-          setActivities([]);
-        }
-      } finally {
-        if (mounted) {
-          setIsLoading(false);
-        }
+    // Check existing auth session
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (mounted && user) {
+        setCurrentUser({ id: user.id, email: user.email });
       }
-    }
+    });
+
+    // Listen for auth state changes
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!mounted) return;
+      if (session?.user) {
+        setCurrentUser({ id: session.user.id, email: session.user.email });
+        loadServerData();
+      } else {
+        setCurrentUser(null);
+        setContacts([]);
+        setDeals([]);
+        setActivities([]);
+      }
+    });
 
     loadServerData();
+
     return () => {
       mounted = false;
+      authListener?.subscription?.unsubscribe();
     };
-  }, []);
+  }, [loadServerData]);
+
+  // Logout handler
+  const handleLogout = async () => {
+    try {
+      const supabase = createClient();
+      await supabase.auth.signOut();
+      await logoutAdmin();
+      setCurrentUser(null);
+      setContacts([]);
+      setDeals([]);
+      setActivities([]);
+      setIsLoginModalOpen(true);
+    } catch (err) {
+      console.error('Logout error:', err);
+    }
+  };
 
   // Compute KPIs
   const stats = useMemo(() => {
@@ -193,7 +252,6 @@ export const CrmProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Add Contact handler
   const handleAddContact = async (input: CreateContactInput): Promise<boolean> => {
-    // Optimistic UI update
     const newContact: Contact = {
       id: 'c_' + Date.now(),
       company_id: null,
@@ -213,7 +271,6 @@ export const CrmProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     setContacts((prev) => [newContact, ...prev]);
 
-    // Try server sync
     try {
       const res = await crmActions.createContact(input);
       if (res.success && res.data) {
@@ -233,9 +290,9 @@ export const CrmProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const newDeal: ExtendedDeal = {
       id: 'd_' + Date.now(),
       contact_id: input.contact_id || null,
-      contact_name: relatedContact?.full_name || 'عميل جديد',
+      contact_name: relatedContact?.full_name || 'عميل محلي',
       company_id: null,
-      company_name: relatedContact?.company_name || 'شركة محلية',
+      company_name: relatedContact?.company_name || 'أعمال محلية',
       title: input.title,
       value: Number(input.value) || 0,
       currency: input.currency || 'JOD',
@@ -271,13 +328,11 @@ export const CrmProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (!deal) return;
 
     if (targetStage === 'lost') {
-      // Trigger mandatory Lost Reason modal
       setPendingLostDeal(deal);
       return;
     }
 
     if (targetStage === 'won') {
-      // Trigger Won Celebration modal with OTTY
       setDeals((prev) =>
         prev.map((d) =>
           d.id === dealId ? { ...d, stage: 'won', probability: 100, urgent: false } : d
@@ -288,7 +343,6 @@ export const CrmProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return;
     }
 
-    // Normal stage movement
     setDeals((prev) =>
       prev.map((d) =>
         d.id === dealId ? { ...d, stage: targetStage, urgent: false } : d
@@ -332,7 +386,7 @@ export const CrmProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       description: input.description,
       next_follow_up: input.next_follow_up || null,
       created_by: null,
-      created_by_name: 'أنت (مسؤول المبيعات)',
+      created_by_name: 'أحمد (مسؤول المبيعات)',
       created_at: new Date().toISOString(),
     };
 
@@ -359,6 +413,8 @@ export const CrmProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         deals,
         activities,
         isLoading,
+        currentUser,
+        setCurrentUser,
         stats,
         isAddContactOpen,
         setIsAddContactOpen,
@@ -370,9 +426,13 @@ export const CrmProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setWonCelebrationDeal,
         isOttyHelpOpen,
         setIsOttyHelpOpen,
+        isLoginModalOpen,
+        setIsLoginModalOpen,
         drawerContact,
         openDrawer,
         closeDrawer,
+        refreshData: loadServerData,
+        handleLogout,
         handleAddContact,
         handleAddDeal,
         handleMoveDeal,

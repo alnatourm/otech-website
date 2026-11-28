@@ -8,6 +8,7 @@ import { CreateDealModal } from '@/components/crm/modals/CreateDealModal';
 import { LostReasonModal } from '@/components/crm/modals/LostReasonModal';
 import { WonCelebrationModal } from '@/components/crm/modals/WonCelebrationModal';
 import { OttyHelpModal } from '@/components/crm/modals/OttyHelpModal';
+import { LoginModal } from '@/components/crm/modals/LoginModal';
 
 export const metadata: Metadata = {
   title: 'نظام المبيعات الداخلي (Sales CRM) | OTECH Amman',
@@ -35,6 +36,7 @@ export default function CrmLayout({ children }: { children: React.ReactNode }) {
         <LostReasonModal />
         <WonCelebrationModal />
         <OttyHelpModal />
+        <LoginModal />
       </div>
     </CrmProvider>
   );
