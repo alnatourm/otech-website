@@ -56,7 +56,12 @@ export const RecentActivitiesList: React.FC = () => {
       </div>
 
       <div className="space-y-3">
-        {activities.slice(0, 4).map((item) => (
+        {activities.length === 0 ? (
+          <div className="p-6 text-center text-xs text-slate-500 border border-dashed border-otech-dark-800 rounded-xl">
+            لا توجد أنشطة مسجلة حتى الآن. ابدأ بتسجيل المكالمات والمتابعات.
+          </div>
+        ) : (
+          activities.slice(0, 4).map((item) => (
           <div
             key={item.id}
             className="flex items-start gap-3 p-3 rounded-xl bg-otech-dark-950/60 border border-otech-dark-800 hover:border-otech-dark-700 transition"
@@ -85,7 +90,8 @@ export const RecentActivitiesList: React.FC = () => {
               </p>
             </div>
           </div>
-        ))}
+        )))
+        }
       </div>
     </div>
   );

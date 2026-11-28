@@ -67,267 +67,10 @@ interface CrmContextType {
 
 const CrmContext = createContext<CrmContextType | undefined>(undefined);
 
-// Initial verified demo data matching UI/UX spec & database schema
-const INITIAL_CONTACTS: Contact[] = [
-  {
-    id: 'c1',
-    company_id: null,
-    full_name: 'م. زياد القضاة',
-    phone: '+962791234567',
-    email: 'ziad@adv-tech.jo',
-    company_name: 'شركة التقنية المتقدمة',
-    country: 'Jordan',
-    city: 'عمّان',
-    lead_source: 'website',
-    lead_status: 'qualified',
-    assigned_to: null,
-    notes: 'مهتم بتطبيق OTECH لإدارة العمليات ومتابعة الفروع.',
-    created_at: new Date(Date.now() - 3600000 * 24 * 3).toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: 'c2',
-    company_id: null,
-    full_name: 'د. ريم المجالي',
-    phone: '+962788881234',
-    email: 'reem@alamal.com',
-    company_name: 'مركز الأمل الطبي',
-    country: 'Jordan',
-    city: 'إربد',
-    lead_source: 'whatsapp',
-    lead_status: 'contacted',
-    assigned_to: null,
-    notes: 'طلبوا استشارة حول أتمتة سجلات المرضى والمواعيد.',
-    created_at: new Date(Date.now() - 3600000 * 24 * 5).toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: 'c3',
-    company_id: null,
-    full_name: 'عمر الكردي',
-    phone: '+962770009988',
-    email: 'omar@kurdi.jo',
-    company_name: 'مؤسسة كردي للتجارة',
-    country: 'Jordan',
-    city: 'عمّان',
-    lead_source: 'referral',
-    lead_status: 'new',
-    assigned_to: null,
-    notes: 'ترشيح من م. زياد القضاة، يرغب بحلول ربط نقاط البيع.',
-    created_at: new Date(Date.now() - 3600000 * 12).toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: 'c4',
-    company_id: null,
-    full_name: 'لانا حداد',
-    phone: '+962795554321',
-    email: 'lana@ward.jo',
-    company_name: 'سلسلة مطاعم ورد',
-    country: 'Jordan',
-    city: 'عمّان',
-    lead_source: 'website',
-    lead_status: 'qualified',
-    assigned_to: null,
-    notes: 'استفسار حول برنامج ولاء رقمي ودعم أبل والت وجوجل والت.',
-    created_at: new Date(Date.now() - 3600000 * 24 * 2).toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: 'c5',
-    company_id: null,
-    full_name: 'طارق الزعبي',
-    phone: '+962781112233',
-    email: 'tareq@alhadi.com',
-    company_name: 'مجموعة الهادي للاستثمار',
-    country: 'Jordan',
-    city: 'الزرقاء',
-    lead_source: 'phone',
-    lead_status: 'new',
-    assigned_to: null,
-    notes: 'اتصال هاتفي مباشر لطلب عرض فني لمنظومة B2B.',
-    created_at: new Date(Date.now() - 3600000 * 6).toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: 'c6',
-    company_id: null,
-    full_name: 'م. حسام العبداللات',
-    phone: '+962799001122',
-    email: 'hossam@alofooq.jo',
-    company_name: 'شركة الأفق الرقمي',
-    country: 'Jordan',
-    city: 'عمّان',
-    lead_source: 'referral',
-    lead_status: 'unqualified',
-    assigned_to: null,
-    notes: 'الميزانية الحالية لا تتناسب مع الحلول المؤسسية المخصصة.',
-    created_at: new Date(Date.now() - 3600000 * 24 * 7).toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-];
-
-const INITIAL_DEALS: ExtendedDeal[] = [
-  {
-    id: 'd1',
-    contact_id: 'c1',
-    contact_name: 'م. زياد القضاة',
-    company_id: null,
-    company_name: 'شركة التقنية المتقدمة',
-    title: 'تطبيق OTECH لإدارة العمليات الميدانية',
-    value: 2500,
-    currency: 'JOD',
-    stage: 'new_lead',
-    probability: 20,
-    expected_close_date: '2026-12-15',
-    lost_reason: null,
-    assigned_to: null,
-    created_at: new Date(Date.now() - 3600000 * 4).toISOString(),
-    updated_at: new Date().toISOString(),
-    urgent: false,
-  },
-  {
-    id: 'd2',
-    contact_id: 'c3',
-    contact_name: 'عمر الكردي',
-    company_id: null,
-    company_name: 'مؤسسة كردي للتجارة',
-    title: 'بوت الدعم الفني الذكي وربط وتساب الأعمال',
-    value: 850,
-    currency: 'JOD',
-    stage: 'new_lead',
-    probability: 25,
-    expected_close_date: '2026-12-05',
-    lost_reason: null,
-    assigned_to: null,
-    created_at: new Date(Date.now() - 3600000 * 28).toISOString(),
-    updated_at: new Date().toISOString(),
-    urgent: true,
-  },
-  {
-    id: 'd3',
-    contact_id: 'c4',
-    contact_name: 'لانا حداد',
-    company_id: null,
-    company_name: 'سلسلة مطاعم ورد',
-    title: 'منصة بطاقات ولاء العملاء PassLoyal',
-    value: 4200,
-    currency: 'JOD',
-    stage: 'contacted',
-    probability: 50,
-    expected_close_date: '2026-12-20',
-    lost_reason: null,
-    assigned_to: null,
-    created_at: new Date(Date.now() - 3600000 * 24).toISOString(),
-    updated_at: new Date().toISOString(),
-    urgent: false,
-  },
-  {
-    id: 'd4',
-    contact_id: 'c2',
-    contact_name: 'د. ريم المجالي',
-    company_id: null,
-    company_name: 'مركز الأمل الطبي',
-    title: 'نظام الفوترة المعتمد وأتمتة التقارير الطبية',
-    value: 6800,
-    currency: 'JOD',
-    stage: 'proposal_sent',
-    probability: 75,
-    expected_close_date: '2026-12-10',
-    lost_reason: null,
-    assigned_to: null,
-    created_at: new Date(Date.now() - 3600000 * 48).toISOString(),
-    updated_at: new Date().toISOString(),
-    urgent: false,
-  },
-  {
-    id: 'd5',
-    contact_id: 'c5',
-    contact_name: 'طارق الزعبي',
-    company_id: null,
-    company_name: 'مجموعة الهادي للاستثمار',
-    title: 'تطوير بوابة B2B للشركات والتبادل الرقمي',
-    value: 5500,
-    currency: 'JOD',
-    stage: 'won',
-    probability: 100,
-    expected_close_date: '2026-11-25',
-    lost_reason: null,
-    assigned_to: null,
-    created_at: new Date(Date.now() - 3600000 * 72).toISOString(),
-    updated_at: new Date().toISOString(),
-    urgent: false,
-  },
-  {
-    id: 'd6',
-    contact_id: 'c6',
-    contact_name: 'م. حسام العبداللات',
-    company_id: null,
-    company_name: 'شركة الأفق الرقمي',
-    title: 'أتمتة المخازن والمنظومة اللوجستية',
-    value: 4000,
-    currency: 'JOD',
-    stage: 'lost',
-    probability: 0,
-    expected_close_date: '2026-11-20',
-    lost_reason: 'الميزانية غير كافية حالياً للمشروع',
-    assigned_to: null,
-    created_at: new Date(Date.now() - 3600000 * 96).toISOString(),
-    updated_at: new Date().toISOString(),
-    urgent: false,
-  },
-];
-
-const INITIAL_ACTIVITIES: ExtendedActivity[] = [
-  {
-    id: 'a1',
-    contact_id: 'c4',
-    contact_name: 'لانا حداد (سلسلة مطاعم ورد)',
-    deal_id: 'd3',
-    type: 'whatsapp',
-    description: 'إرسال مسودة العرض التوضيحي لمنصة PassLoyal ورابط التجربة الحية على هاتف الآيفون.',
-    next_follow_up: '2026-11-30T10:00:00Z',
-    created_by: null,
-    created_by_name: 'رامي النجار',
-    created_at: new Date(Date.now() - 3600000 * 2).toISOString(),
-  },
-  {
-    id: 'a2',
-    contact_id: 'c1',
-    contact_name: 'م. زياد القضاة (شركة التقنية المتقدمة)',
-    deal_id: 'd1',
-    type: 'call',
-    description: 'مكالمة هاتفية مدتها 15 دقيقة لمناقشة المتطلبات الفنية للربط مع نظام ERP الحالي لديهم.',
-    next_follow_up: '2026-12-01T14:30:00Z',
-    created_by: null,
-    created_by_name: 'رامي النجار',
-    created_at: new Date(Date.now() - 3600000 * 5).toISOString(),
-  },
-  {
-    id: 'a3',
-    contact_id: 'c2',
-    contact_name: 'د. ريم المجالي (مركز الأمل الطبي)',
-    deal_id: 'd4',
-    type: 'meeting',
-    description: 'اجتماع حضوري في مقر المركز بإربد لتقديم العرض الفني والمالي لمجلس الإدارة.',
-    next_follow_up: null,
-    created_by: null,
-    created_by_name: 'سارة خالد',
-    created_at: new Date(Date.now() - 3600000 * 26).toISOString(),
-  },
-  {
-    id: 'a4',
-    contact_id: 'c5',
-    contact_name: 'طارق الزعبي (مجموعة الهادي للاستثمار)',
-    deal_id: 'd5',
-    type: 'note',
-    description: 'تم توقيع العقد رسمياً واستلام الدفعة الأولى. بدء مرحلة التحليل التقني وتحديد الـ Milestones.',
-    next_follow_up: null,
-    created_by: null,
-    created_by_name: 'رامي النجار',
-    created_at: new Date(Date.now() - 3600000 * 52).toISOString(),
-  },
-];
+// Initial production clean state (empty)
+const INITIAL_CONTACTS: Contact[] = [];
+const INITIAL_DEALS: ExtendedDeal[] = [];
+const INITIAL_ACTIVITIES: ExtendedActivity[] = [];
 
 export const CrmProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [contacts, setContacts] = useState<Contact[]>(INITIAL_CONTACTS);
@@ -347,6 +90,7 @@ export const CrmProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     let mounted = true;
     async function loadServerData() {
+      setIsLoading(true);
       try {
         const [contactsRes, dealsRes, activitiesRes] = await Promise.all([
           crmActions.getContacts(),
@@ -355,29 +99,43 @@ export const CrmProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         ]);
 
         if (mounted) {
-          if (contactsRes.success && contactsRes.data && contactsRes.data.length > 0) {
-            setContacts(contactsRes.data);
-          }
-          if (dealsRes.success && dealsRes.data && dealsRes.data.length > 0) {
+          const loadedContacts = contactsRes.success && contactsRes.data ? contactsRes.data : [];
+          setContacts(loadedContacts);
+
+          if (dealsRes.success && dealsRes.data) {
             // Map deals with contact names
             const mappedDeals: ExtendedDeal[] = dealsRes.data.map((d) => ({
               ...d,
-              contact_name: contacts.find((c) => c.id === d.contact_id)?.full_name || 'عميل محلي',
-              company_name: contacts.find((c) => c.id === d.contact_id)?.company_name || 'شركة محلية',
+              contact_name: loadedContacts.find((c) => c.id === d.contact_id)?.full_name || 'عميل محلي',
+              company_name: loadedContacts.find((c) => c.id === d.contact_id)?.company_name || 'شركة محلية',
             }));
             setDeals(mappedDeals);
+          } else {
+            setDeals([]);
           }
-          if (activitiesRes.success && activitiesRes.data && activitiesRes.data.length > 0) {
+
+          if (activitiesRes.success && activitiesRes.data) {
             const mappedActivities: ExtendedActivity[] = activitiesRes.data.map((a) => ({
               ...a,
-              contact_name: contacts.find((c) => c.id === a.contact_id)?.full_name || 'العميل',
+              contact_name: loadedContacts.find((c) => c.id === a.contact_id)?.full_name || 'العميل',
               created_by_name: 'أنت (مسؤول المبيعات)',
             }));
             setActivities(mappedActivities);
+          } else {
+            setActivities([]);
           }
         }
       } catch (err) {
-        console.warn('Operating in offline/demo mode with rich mock data.');
+        console.warn('Operating in offline/clean mode.');
+        if (mounted) {
+          setContacts([]);
+          setDeals([]);
+          setActivities([]);
+        }
+      } finally {
+        if (mounted) {
+          setIsLoading(false);
+        }
       }
     }
 

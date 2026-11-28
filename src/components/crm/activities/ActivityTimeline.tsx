@@ -55,7 +55,12 @@ export const ActivityTimeline: React.FC = () => {
         </span>
       </div>
 
-      <div className="relative border-s-2 border-otech-dark-700 ms-3 space-y-6 pt-2">
+      {activities.length === 0 ? (
+        <div className="p-8 text-center text-xs text-slate-500 border border-dashed border-otech-dark-800 rounded-2xl glass-card">
+          لا توجد تفاعلات أو أنشطة مسجلة في الخط الزمني حتى الآن.
+        </div>
+      ) : (
+        <div className="relative border-s-2 border-otech-dark-700 ms-3 space-y-6 pt-2">
         {activities.map((item) => {
           const cfg = typeConfig[item.type] || typeConfig.note;
           const createdDate = new Date(item.created_at);
@@ -127,6 +132,7 @@ export const ActivityTimeline: React.FC = () => {
           );
         })}
       </div>
+      )}
     </div>
   );
 };

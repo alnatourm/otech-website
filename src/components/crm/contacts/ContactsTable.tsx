@@ -144,11 +144,15 @@ export const ContactsTable: React.FC = () => {
       {/* Contacts Table or OTTY Empty State */}
       {filteredContacts.length === 0 ? (
         <OttyEmptyState
-          title="لم نتمكن من العثور على أي جهة اتصال تطابق بحثك"
+          title={
+            searchQuery
+              ? 'لم نتمكن من العثور على أي جهة اتصال تطابق بحثك'
+              : 'لا توجد جهات اتصال مسجلة بعد'
+          }
           description={
             searchQuery
               ? `لا توجد نتائج مطابقة لـ '${searchQuery}'. يمكنك إضافة عميل جديد بهذا الاسم أو تعديل معايير الفلترة.`
-              : 'لا توجد جهات اتصال مسجلة حالياً في النظام.'
+              : 'ابدأ ببناء قاعدة عملائك عبر إضافة جهة اتصال جديدة الآن.'
           }
           actionLabel="+ إضافة جهة اتصال جديدة"
           onAction={() => setIsAddContactOpen(true)}
